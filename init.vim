@@ -2,12 +2,9 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
-set number
-set encoding=utf8
 set scrolloff=5 "keep 5 lines on screen when scrolling/moving
 set wildmenu
 set wildmode=list
-set termguicolors
 set lazyredraw 
 
 set autoindent
@@ -17,6 +14,8 @@ set smarttab
 autocmd CompleteDone * pclose
 set splitright
 set splitbelow
+
+tnoremap <Esc> <C-\><C-n>
 
 " For neovim, install vim-plug by running
 " curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
