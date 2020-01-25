@@ -2,9 +2,8 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
+set number
 set scrolloff=5 "keep 5 lines on screen when scrolling/moving
-set wildmenu
-set wildmode=list
 set lazyredraw 
 
 set autoindent
