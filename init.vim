@@ -6,9 +6,8 @@ set number
 set scrolloff=5 "keep 5 lines on screen when scrolling/moving
 set lazyredraw 
 
-set autoindent
-set backspace=indent,eol,start
-set smarttab
+set tabstop=4
+set shiftwidth=0
 
 autocmd CompleteDone * pclose
 set splitright
