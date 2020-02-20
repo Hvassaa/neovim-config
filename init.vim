@@ -45,3 +45,9 @@ set updatetime=300
 set shortmess+=c
 " always show signcolum
 set signcolumn=yes
+
+" IJVM
+" compile current file to a .bc
+autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F4> :!ijvm-asm %:p %:r.bc<CR>
+" run corresponding .bc file, input args and press ENTER
+autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F5> :!ijvm %:r.bc 
