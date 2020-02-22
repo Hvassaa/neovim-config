@@ -25,12 +25,13 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " LaTeX
-" latexmk is needed for compiling
+" latexmk and pdflatex is needed for compiling
 let g:vimtex_complete_enabled = 1
 autocmd FileType tex autocmd VimLeave * :VimtexClean
 
 
 " CoC
+" nodejs is needed for coc to work
 " if hidden is not set, TextEdit might fail.
 set hidden
 " Some servers have issues with backup files, see #649
@@ -46,6 +47,7 @@ set shortmess+=c
 set signcolumn=yes
 
 " IJVM
+" ijvm-asm and ijvm should be in path
 " compile current file to a .bc
 autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F4> :!ijvm-asm %:p %:r.bc<CR>
 " run corresponding .bc file, input args and press ENTER
