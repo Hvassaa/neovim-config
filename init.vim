@@ -9,11 +9,18 @@ set lazyredraw
 set tabstop=4
 set shiftwidth=0
 
+" autoclose preview windows
 autocmd CompleteDone * pclose
+
+" saner splitting
 set splitright
 set splitbelow
 
+" map <ESC> to exit insert mode in term
 tnoremap <Esc> <C-\><C-n>
+
+" enable mouse, why not?
+set mouse=n
 
 " For neovim, install vim-plug by running
 " curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
