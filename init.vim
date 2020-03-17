@@ -1,3 +1,9 @@
+" Packages needed (fedora)
+" nodejs for coc
+" git for plugging and vim fugitive
+" clang-tools-extra for coc-clangd
+" texlive and latexmk for vimtex
+
 set nocompatible
 filetype plugin indent on
 syntax on
@@ -33,13 +39,11 @@ Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 " LaTeX
-" latexmk and pdflatex is needed for compiling
 let g:vimtex_complete_enabled = 1
 autocmd FileType tex autocmd VimLeave * :VimtexClean
 
 
 " CoC
-" nodejs is needed for coc to work
 " if hidden is not set, TextEdit might fail.
 set hidden
 " Some servers have issues with backup files, see #649
