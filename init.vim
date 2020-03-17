@@ -28,6 +28,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 " LaTeX
@@ -58,3 +60,6 @@ set signcolumn=yes
 autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F4> :!ijvm-asm %:p %:r.bc<CR>
 " run corresponding .bc file, input args and press ENTER
 autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F5> :!ijvm %:r.bc 
+
+" javascript
+let g:vim_jsx_pretty_colorful_config = 1
