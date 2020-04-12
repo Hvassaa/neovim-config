@@ -1,12 +1,3 @@
-" Packages needed (fedora)
-" nodejs for coc
-" git for plugging and vim fugitive
-" clang-tools-extra for coc-clangd
-" texlive and latexmk for vimtex
-" bear (for generating compile_commands.json)
-" CocInstall:
-" Coc-clangd
-
 set nocompatible
 filetype plugin indent on
 syntax on
