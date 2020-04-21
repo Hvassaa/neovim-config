@@ -10,6 +10,7 @@
 | latexmk           | vimtex              |
 | flutter\*			| coc-flutter		  |
 | dart\*   			| coc-flutter		  |
+
 \* *see https://github.com/Hvassaa/Vim-flutter-setup-guide*
 
 # coc extension
