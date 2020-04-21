@@ -5,6 +5,7 @@ syntax on
 set number
 set scrolloff=5 "keep 5 lines on screen when scrolling/moving
 set lazyredraw 
+set termguicolors
 
 set tabstop=4
 set shiftwidth=0
