@@ -30,6 +30,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'dart-lang/dart-vim-plugin'
 call plug#end()
 
 " LaTeX

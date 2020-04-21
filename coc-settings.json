@@ -1,0 +1,14 @@
+{
+	"languageserver": {
+    "dart": {
+      "command": "~/sdk/dartsdk-linux-x64-release/dart-sdk/bin/dart",
+      "args": [
+        "~/sdk/dartsdk-linux-x64-release/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
+        "--lsp"
+      ],
+      "filetypes": ["dart"],
+      "disableDynamicRegister": true,
+      "trace.server": "verbose"
+    }
+  }
+}
