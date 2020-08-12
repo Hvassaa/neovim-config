@@ -28,8 +28,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'yuezk/vim-js'
-"Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 " LaTeX
