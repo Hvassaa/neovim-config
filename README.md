@@ -1,5 +1,5 @@
 # Install vim-plug with the follwing command
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Packages needed for this config (debian)
