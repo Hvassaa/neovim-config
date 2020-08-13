@@ -22,8 +22,7 @@ tnoremap <Esc> <C-\><C-n>
 " enable mouse, why not?
 set mouse=n
 
-" For neovim, install vim-plug by running
-" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" For neovim, install vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
