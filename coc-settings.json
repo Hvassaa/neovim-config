@@ -1,4 +1,5 @@
 {
+	"python.jediEnabled": false,
 	"languageserver": {
     "dart": {
       "command": "~/sdk/dartsdk-linux-x64-release/dart-sdk/bin/dart",
