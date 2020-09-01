@@ -1,6 +1,10 @@
 {
 	"python.jediEnabled": false,
 	"languageserver": {
+	"ocaml": {
+      "command": "ocamllsp",
+      "filetypes": ["ocaml"]
+    },
     "dart": {
       "command": "~/sdk/dartsdk-linux-x64-release/dart-sdk/bin/dart",
       "args": [
