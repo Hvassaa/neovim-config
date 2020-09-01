@@ -13,6 +13,7 @@
 | bear (or cmake)   | (nicer) coc-clangd        |
 | texlive           | vimtex                    |
 | latexmk           | vimtex                    |
+| opam              | for ocaml stuff           |
 
 # coc extension
 
@@ -25,3 +26,12 @@
 | coc-css           | css                       |
 | coc-python        | python                    |
 | coc-go            | golang                    |
+
+# OCaml setup
+
+Again, make sure opam is installed. Then install the following packages with opam, with *opam install ...*
+
+* ocaml-lsp-server
+* ocp-indent
+
+You should then be able to indent the current live with "==". Coc should also start and use the language server (given the Coc-config includes it).
