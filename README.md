@@ -22,3 +22,6 @@
 | coc-vimtex        | (latex) vimtex completion |
 | coc-json          | json                      |
 | coc-html          | html                      |
+| coc-css           | css                       |
+| coc-python        | python                    |
+| coc-go            | golang                    |
