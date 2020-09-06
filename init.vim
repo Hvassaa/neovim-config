@@ -4,7 +4,7 @@
 set nocompatible
 filetype plugin indent on
 syntax on
-
+set noshowmode
 set number
 set scrolloff=5
 set lazyredraw
@@ -31,13 +31,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 "---------------
 " Gruvbox theme
 "---------------
+"autocmd vimenter * colorscheme gruvbox
+colo gruvbox
 let g:gruvbox_italic = 1
-autocmd vimenter * colorscheme gruvbox
+let g:lightline = {'colorscheme': 'gruvbox'}
+
 
 "-------
 " LaTeX
@@ -60,6 +64,8 @@ autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F5> :!ijvm %:r.bc
 "-----------
 " disable vim-go :GoDef short cut (gd)
 let g:go_def_mapping_enabled = 0
+" disable vim-go completion in favour of coc
+let g:go_code_completion_enabled = 0
 
 "-----------
 " OCaml
@@ -94,3 +100,4 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+
