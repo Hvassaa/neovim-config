@@ -71,7 +71,7 @@ let g:go_code_completion_enabled = 0
 " OCaml
 "-----------
 " ocp-indent
-autocmd FileType ocaml source ~/.opam/default/share/ocp-indent/vim/indent/ocaml.vim
+" autocmd FileType ocaml source ~/.opam/default/share/ocp-indent/vim/indent/ocaml.vim
 
 "------------------------------------
 " coc.nvim (almost) default settings

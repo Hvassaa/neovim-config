@@ -2,7 +2,7 @@
 	"python.jediEnabled": false,
 	"languageserver": {
 	"ocaml": {
-      "command": "ocamllsp",
+      "command": "~/.opam/default/bin/ocamllsp",
       "filetypes": ["ocaml"]
     },
     "dart": {
