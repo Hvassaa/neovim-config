@@ -28,6 +28,7 @@ set mouse=n
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'morhetz/gruvbox'
