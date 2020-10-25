@@ -33,6 +33,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 "---------------
