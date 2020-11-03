@@ -42,8 +42,23 @@ call plug#end()
 "autocmd vimenter * colorscheme gruvbox
 colo gruvbox
 let g:gruvbox_italic = 1
-let g:lightline = {'colorscheme': 'gruvbox'}
 
+" From coc wiki, on lightline integration
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
 
 "-------
 " LaTeX
