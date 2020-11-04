@@ -1,43 +1,46 @@
 "------------------
 " General Settings
 "------------------
-set nocompatible
-filetype plugin indent on
-syntax on
-set noshowmode
-set number
-set scrolloff=5
-set lazyredraw
-set termguicolors
-set tabstop=4
-set shiftwidth=0
-" autoclose preview windows
-autocmd CompleteDone * pclose
-" saner splitting
-set splitright
-set splitbelow
-" map <ESC> to exit insert mode in term
-tnoremap <Esc> <C-\><C-n>
-" enable mouse, why not?
-set mouse=n
+set nocompatible				" don't try to be vi-compatible
+filetype plugin indent on		" detect filetype, use filetype plugin and indent
+syntax on						" use syntax highlighting
+set noshowmode					" disable vim showing mode, since lightline does it
+set number						" show line numbers
+set scrolloff=5					" always have >=5 lines under the cursor
+set lazyredraw					" don't redraw the screen during macros = performance
+set termguicolors				" Enables 24-bit RGB color
+set tabstop=4					" Number of spaces that a <Tab> in the file counts for.
+set shiftwidth=0				" 0 = use tabstop for indenting (<< / >>)
+autocmd CompleteDone * pclose	" autoclose preview windows
+set splitright					" saner splitting
+set splitbelow					" saner splitting
+tnoremap <Esc> <C-\><C-n>		" map <ESC> to exit insert mode in term
+set mouse=n 					" enable mouse, why not?
+set nowrap						" don't wrap lines visually
+set clipboard=unnamedplus		" make vim use system clipboard
+set hidden 						" COC: allow switching away from modified buffers
+set cmdheight=2					" COC: Better display for messages
+set updatetime=300				" COC: Smaller updatetime for CursorHold & CursorHoldI
+set shortmess+=c				" COC: don't give /ins-completion-menu/ messages.
+set signcolumn=yes				" COC: always show signcolumns
 
 "---------
 " Plugins
 "---------
 " For neovim, install vim-plug ... 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'lervag/vimtex'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim'
-Plug 'mattn/emmet-vim'
+Plug 'lervag/vimtex'								" plugin for latex
+Plug 'tpope/vim-fugitive'							" plugin for git
+Plug 'tpope/vim-commentary'							" plugin for commenting out lines
+Plug 'neoclide/coc.nvim', {'branch': 'release'}		" lsp-client plugin
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }	" plugin for golang
+Plug 'morhetz/gruvbox'								" plugin for gruvbox theme
+Plug 'itchyny/lightline.vim'						" plugin for lightline statusline
+Plug 'mattn/emmet-vim'								" plugin for html snippets
 call plug#end()
 
 "---------------
-" Gruvbox theme
+" Theming / lightline
 "---------------
 "autocmd vimenter * colorscheme gruvbox
 colo gruvbox
@@ -63,15 +66,14 @@ let g:lightline = {
 "-------
 " LaTeX
 "-------
-let g:vimtex_complete_enabled = 1
-let g:tex_flavor = 'latex'
-autocmd FileType tex autocmd VimLeave * :VimtexClean
+let g:vimtex_complete_enabled = 1						" enable completion
+let g:tex_flavor = 'latex'								" use latex, not tex
+autocmd FileType tex autocmd VimLeave * :VimtexClean	" clean up files when leaving a .tex file
 
 "------
 " IJVM
 "------
 " ijvm-asm and ijvm should be in path
-" compile current file to a .bc
 autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F4> :!ijvm-asm %:p %:r.bc<CR>
 " run corresponding .bc file, input args and press ENTER
 autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F5> :!ijvm %:r.bc 
@@ -93,16 +95,6 @@ let g:go_code_completion_enabled = 0
 "------------------------------------
 " coc.nvim (almost) default settings
 "------------------------------------
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Better display for messages
-set cmdheight=2
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 " Use `[c` and `]c` to navigate diagnostics
