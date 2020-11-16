@@ -33,7 +33,6 @@ Plug 'lervag/vimtex'								" plugin for latex
 Plug 'tpope/vim-fugitive'							" plugin for git
 Plug 'tpope/vim-commentary'							" plugin for commenting out lines
 Plug 'neoclide/coc.nvim', {'branch': 'release'}		" lsp-client plugin
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }	" plugin for golang
 Plug 'morhetz/gruvbox'								" plugin for gruvbox theme
 Plug 'itchyny/lightline.vim'						" plugin for lightline statusline
 Plug 'mattn/emmet-vim'								" plugin for html snippets
@@ -78,20 +77,6 @@ autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F4> :!ijvm-asm %:p %:r.bc<CR>
 " run corresponding .bc file, input args and press ENTER
 autocmd BufNewFile,BufRead *.j nnoremap <buffer> <F5> :!ijvm %:r.bc 
 
-"-----------
-" Golang
-"-----------
-" disable vim-go :GoDef short cut (gd)
-let g:go_def_mapping_enabled = 0
-" disable vim-go completion in favour of coc
-let g:go_code_completion_enabled = 0
-
-"-----------
-" OCaml
-"-----------
-" ocp-indent
-" autocmd FileType ocaml source ~/.opam/default/share/ocp-indent/vim/indent/ocaml.vim
-
 "------------------------------------
 " coc.nvim (almost) default settings
 "------------------------------------
@@ -109,4 +94,21 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Add missing imports on save
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
