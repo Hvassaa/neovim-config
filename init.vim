@@ -22,12 +22,13 @@ set mouse=n                                         " enable mouse, why not?
 set nowrap                                          " don't wrap lines visually
 set clipboard=unnamedplus                           " make vim use system clipboard
 set hidden                                          " allow switching away from modified buffers
-set list listchars=nbsp:¬,tab:»·,precedes:<,extends:> " show whitespace
+" set list listchars=nbsp:¬,tab:»·,precedes:<,extends:> " show whitespace
 map <F8> :setlocal spell! spelllang=en_gb<CR>       " Activate spelling
 set cmdheight=2                                     " COC: Better display for messages
 set updatetime=300                                  " COC: Smaller updatetime for CursorHold & CursorHoldI
 set shortmess+=c                                    " COC: don't give /ins-completion-menu/ messages.
 set signcolumn=yes                                  " COC: always show signcolumns
+set background=light
 
 "---------
 " Plugins
@@ -37,28 +38,30 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lervag/vimtex'                                " plugin for latex
 Plug 'tpope/vim-commentary'                         " plugin for commenting out lines
 Plug 'neoclide/coc.nvim', {'branch': 'release'}     " lsp-client plugin
-"Plug 'morhetz/gruvbox'								" plugin for gruvbox theme
+Plug 'gruvbox-community/gruvbox/'                   " plugin for gruvbox theme
 Plug 'itchyny/lightline.vim'                        " plugin for lightline statusline
+Plug 'LnL7/vim-nix'                                 " nix syntax
 call plug#end()
 
 "---------------
 " Theming / lightline
 "---------------
-hi Pmenu guifg=black
-hi Pmenu guibg=white
-hi PmenuSel guifg=white
-hi PmenuSel guibg=grey
+" hi Pmenu guifg=black
+" hi Pmenu guibg=white
+" hi PmenuSel guifg=white
+" hi PmenuSel guibg=grey
 "autocmd vimenter * colorscheme gruvbox
-"colo gruvbox
-"let g:gruvbox_italic = 1
+" let g:gruvbox_italic = 1
+" colo gruvbox
 
 " From coc wiki, on lightline integration
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
 
-"\ 'colorscheme': 'gruvbox'
+" \ 'colorscheme': 'gruvbox',
 let g:lightline = {
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
@@ -70,11 +73,12 @@ let g:lightline = {
       \ }
 
 "-------
-" LaTeX
+" LaTeX (and Markdown)
 "-------
 let g:vimtex_complete_enabled = 1                    " enable completion
 let g:tex_flavor = 'latex'                           " use latex, not tex
 autocmd FileType tex autocmd VimLeave * :VimtexClean " clean up files when leaving a .tex file
+autocmd FileType tex,md setlocal textwidth=80        " clean up files when leaving a .tex file
 
 "------------------------------------
 " coc.nvim (almost) default settings

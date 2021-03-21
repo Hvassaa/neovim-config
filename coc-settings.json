@@ -22,6 +22,7 @@
 			"trace.server": "verbose"
 		}
 	},
+  "rust-analyzer.server.path": "/run/current-system/sw/bin/rust-analyzer",
 	"coc.preferences.formatOnSaveFiletypes": [
 		"dart",
 		"python",
@@ -29,6 +30,7 @@
 		"html",
 		"json",
 		"javascript",
-		"css"
+		"css",
+    "rust"
 	]
 }
