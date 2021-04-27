@@ -22,9 +22,8 @@ set mouse=n                                         " enable mouse, why not?
 set nowrap                                          " don't wrap lines visually
 set clipboard=unnamedplus                           " make vim use system clipboard
 set hidden                                          " allow switching away from modified buffers
-" set list listchars=nbsp:¬,tab:»·,precedes:<,extends:> " show whitespace
 map <F8> :setlocal spell! spelllang=en_gb<CR>       " Activate spelling
-set cmdheight=2                                     " COC: Better display for messages
+" set cmdheight=2                                     " COC: Better display for messages
 set updatetime=300                                  " COC: Smaller updatetime for CursorHold & CursorHoldI
 set shortmess+=c                                    " COC: don't give /ins-completion-menu/ messages.
 set signcolumn=yes                                  " COC: always show signcolumns
@@ -38,26 +37,23 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lervag/vimtex'                                " plugin for latex
 Plug 'tpope/vim-commentary'                         " plugin for commenting out lines
 Plug 'neoclide/coc.nvim', {'branch': 'release'}     " lsp-client plugin
-Plug 'gruvbox-community/gruvbox/'                   " plugin for gruvbox theme
 Plug 'itchyny/lightline.vim'                        " plugin for lightline statusline
-Plug 'LnL7/vim-nix'                                 " nix syntax
+Plug 'dart-lang/dart-vim-plugin'                              " plugin for dart
 call plug#end()
 
-"---------------
-" Theming / lightline
-"---------------
-" hi Pmenu guifg=black
-" hi Pmenu guibg=white
-" hi PmenuSel guifg=white
-" hi PmenuSel guibg=grey
-"autocmd vimenter * colorscheme gruvbox
-" let g:gruvbox_italic = 1
-" colo gruvbox
 
+"-------
+" Lightline and theming
+"-------
 " From coc wiki, on lightline integration
 function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
+" adjust color which is almost impossible to read
+highlight CocInfoFloat guifg=black
+highlight CocErrorFloat guifg=black
+highlight CocWarningFloat guifg=black
+highlight CocHintFloat guifg=black
 
 " \ 'colorscheme': 'gruvbox',
 let g:lightline = {
@@ -77,6 +73,7 @@ let g:lightline = {
 "-------
 let g:vimtex_complete_enabled = 1                    " enable completion
 let g:tex_flavor = 'latex'                           " use latex, not tex
+let g:vimtex_view_general_viewer = 'evince'          " use evince as pdf reader
 autocmd FileType tex autocmd VimLeave * :VimtexClean " clean up files when leaving a .tex file
 autocmd FileType tex,md setlocal textwidth=80        " clean up files when leaving a .tex file
 
@@ -84,7 +81,7 @@ autocmd FileType tex,md setlocal textwidth=80        " clean up files when leavi
 " coc.nvim (almost) default settings
 "------------------------------------
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
@@ -100,7 +97,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 " Add missing imports on save
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
