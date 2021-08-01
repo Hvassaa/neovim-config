@@ -14,6 +14,7 @@ set expandtab
 set shiftwidth=0                                    " 0 = use tabstop for indenting (<< / >>)
 set ignorecase                                      " ignore case when searching
 set smartcase                                       " unless search term has uppercase
+set wildmode=longest:full,full                      " menu completion "like bash"
 autocmd CompleteDone * pclose                       " autoclose preview windows
 set splitright                                      " saner splitting
 set splitbelow                                      " saner splitting
@@ -27,7 +28,7 @@ map <F8> :setlocal spell! spelllang=en_gb<CR>       " Activate spelling
 set updatetime=300                                  " COC: Smaller updatetime for CursorHold & CursorHoldI
 set shortmess+=c                                    " COC: don't give /ins-completion-menu/ messages.
 set signcolumn=yes                                  " COC: always show signcolumns
-set background=light
+"set background=light
 
 "---------
 " Plugins
@@ -56,8 +57,8 @@ highlight CocWarningFloat guifg=black
 highlight CocHintFloat guifg=black
 
 " \ 'colorscheme': 'gruvbox',
+" \ 'colorscheme': 'one',
 let g:lightline = {
-      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
@@ -76,6 +77,13 @@ let g:tex_flavor = 'latex'                           " use latex, not tex
 let g:vimtex_view_general_viewer = 'evince'          " use evince as pdf reader
 autocmd FileType tex autocmd VimLeave * :VimtexClean " clean up files when leaving a .tex file
 autocmd FileType tex,md setlocal textwidth=80        " clean up files when leaving a .tex file
+
+"-------
+" Groff 
+"-------
+autocmd BufWritePost *.ms :silent !groff -p -t -ms %:r.ms -Tps > %:r.ps
+autocmd BufWritePost *.mom :silent !pdfmom %:r.mom > %:r.pdf
+
 
 "------------------------------------
 " coc.nvim (almost) default settings
