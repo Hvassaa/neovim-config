@@ -10,6 +10,10 @@
 			]
 		}
 	},
+  "java.home": "/usr/lib/jvm/default-java",
+  "codeLens.enable": true,
+  "java.referencesCodeLens.enabled": true,
+  "java.implementationsCodeLens.enabled": true,
 	"coc.preferences.formatOnSaveFiletypes": [
 		"dart",
 		"python",
@@ -18,6 +22,7 @@
 		"json",
 		"javascript",
 		"css",
-    "rust"
+    "rust",
+    "java"
 	]
 }
