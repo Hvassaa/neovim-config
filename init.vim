@@ -81,8 +81,11 @@ autocmd FileType tex,md setlocal textwidth=80        " clean up files when leavi
 "-------
 " Groff 
 "-------
-autocmd BufWritePost *.ms :silent !groff -p -t -ms %:r.ms -Tps > %:r.ps
+" autocmd BufWritePost *.ms :silent !groff -e -p -t -ms %:r.ms -Tpdf > %:r.pdf
+"autocmd BufWritePost *.ms :silent !groff -e -p -t -ms %:r.ms -Tps > %:r.ps 
+autocmd BufWritePost *.ms :silent !groff -e -p -t -ms %:r.ms -Tps > %:r.ps && ps2pdf %:r.ps
 autocmd BufWritePost *.mom :silent !pdfmom %:r.mom > %:r.pdf
+autocmd bufreadpre *.ms setlocal textwidth=80
 
 
 "------------------------------------
