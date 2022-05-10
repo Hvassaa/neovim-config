@@ -38,7 +38,6 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 require('lspconfig').pyright.setup{ on_attach = on_attach }
-require('lspconfig').rnix.setup{ on_attach = on_attach }
 require('lspconfig').vimls.setup{ on_attach = on_attach }
 require('lspconfig').clangd.setup{ on_attach = on_attach }
 EOF
