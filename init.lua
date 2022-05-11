@@ -17,12 +17,13 @@ vim.opt.shiftwidth = 4
 vim.cmd("autocmd CompleteDone * pclose")
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>")
 
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.local/share/nvim/plugged')
-Plug 'lervag/vimtex'
-Plug 'tpope/vim-commentary'
-Plug 'neovim/nvim-lspconfig'
-vim.call('plug#end')
+local use = require('packer').use
+require('packer').startup(function()
+	use 'wbthomason/packer.nvim'
+	use 'lervag/vimtex'
+	use 'tpope/vim-commentary'
+	use 'neovim/nvim-lspconfig'
+end)
 
 -- LSP
 local on_attach = function(client, bufnr)
