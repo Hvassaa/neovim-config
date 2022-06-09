@@ -17,22 +17,71 @@ vim.opt.shiftwidth = 4
 vim.cmd("autocmd CompleteDone * pclose")
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>")
 
+-- vim.opt.completeopt = { "menu", "menuone", "noselect" }
 local use = require('packer').use
 require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	use 'lervag/vimtex'
 	use 'tpope/vim-commentary'
+	use 'L3MON4D3/LuaSnip'
 	use 'neovim/nvim-lspconfig'
+	use 'hrsh7th/nvim-cmp'
+	use 'saadparwaiz1/cmp_luasnip'
+	use 'hrsh7th/cmp-nvim-lsp'
+	use 'hrsh7th/cmp-omni' -- works with vimtex! 
+	use 'hrsh7th/cmp-buffer'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-nvim-lua'
 end)
 
--- LSP
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+local lspconfig = require('lspconfig')
+
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = { 'pyright', 'tsserver', 'rust_analyzer' }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+  }
 end
-require('lspconfig').pyright.setup{ on_attach = on_attach }
-require('lspconfig').vimls.setup{ on_attach = on_attach }
-require('lspconfig').clangd.setup{ on_attach = on_attach }
+
+-- nvim-cmp setup
+local luasnip = require 'luasnip'
+local cmp = require 'cmp'
+cmp.setup {
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
+	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lua" },
+		{ name = 'nvim_lsp' },
+		{ name = 'luasnip' },
+		{ name = "omni" }, 
+		{ name = "buffer", keyword_length = 4 },
+		{ name = "path" },
+	}),
+	 mapping = cmp.mapping.preset.insert({
+		 ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+		 ["<C-f>"] = cmp.mapping.scroll_docs(4),
+		 ['<c-y>'] = cmp.mapping.confirm {
+			 behavior = cmp.ConfirmBehavior.Replace,
+			 select = true,
+		},
+	}),
+	view = {
+		entries = "custom",
+	},
+	experimental = {
+		ghost_text = true,
+	},
+}
+vim.cmd("highlight Pmenu ctermbg=gray guibg=gray")
 
 -- LaTeX / vimtex settings
 vim.g.vimtex_complete_enabled = 1
