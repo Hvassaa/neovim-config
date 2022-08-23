@@ -1,2 +1,5 @@
 .netrwhist
 plugin/*
+workspace/*
+!README.md
+jdt-language-server*
