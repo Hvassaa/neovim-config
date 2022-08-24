@@ -14,9 +14,9 @@ vim.cmd("highlight WinSeparator guibg=None")
 vim.cmd('filetype plugin indent on')
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.cmd("autocmd CompleteDone * pclose")
+vim.cmd("autocmd CompleteDone * pclose") 
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>")
-vim.cmd("highlight Pmenu ctermbg=gray guibg=gray")
+vim.cmd("highlight Pmenu ctermbg=NONE guibg=NONE") -- only really works when float/pop has borders
 
 -- vim.opt.completeopt = { "menu", "menuone", "noselect" }
 local use = require('packer').use
@@ -63,13 +63,44 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- java is setup with nvim-jdtls in ftplugin/java.lua
-local servers = { 'pyright', 'tsserver', 'rust_analyzer' }
+local servers = { 'pyright', 'tsserver', 'rust_analyzer', }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = on_attach,
     capabilities = capabilities,
   }
 end
+
+lspconfig.sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = {'vim'},
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+-- border, used for cmp and diagnostic etc.
+local border = {
+    { "╭", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╮", "FloatBorder" },
+    { "│", "FloatBorder" },
+    { "╯", "FloatBorder" },
+    { "─", "FloatBorder" },
+    { "╰", "FloatBorder" },
+    { "│", "FloatBorder" },
+}
 
 
 -- nvim-cmp setup
@@ -103,13 +134,34 @@ cmp.setup {
 	experimental = {
 		ghost_text = true,
 	},
+	window = {
+		documentation = {
+			border = border
+		},
+		completion = {
+			border = border
+		}
+	},
 }
+
+-- customizing floating window borders (taken from nvim-lsp wiki)
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
 -- LaTeX / vimtex settings
 vim.g.vimtex_complete_enabled = 1
 vim.g.tex_flavor = 'latex'
 vim.g.vimtex_view_general_viewer = 'evince'
+--vim.cmd[[
+	--autocmd FileType tex autocmd VimLeave * :VimtexClean
+	--autocmd FileType tex,md setlocal textwidth=80
+--]]
+
 vim.cmd[[
-	autocmd FileType tex autocmd VimLeave * :VimtexClean
-	autocmd FileType tex,md setlocal textwidth=80
+	autocmd BufEnter *.tex autocmd VimLeave * :VimtexClean
+	autocmd BufEnter *.tex,*.md setlocal textwidth=80
 ]]
