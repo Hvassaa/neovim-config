@@ -11,7 +11,6 @@ require('packer').startup(function()
 	use 'hrsh7th/cmp-omni' -- works with vimtex! 
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
-	use 'hrsh7th/cmp-nvim-lua'
 	use 'hrsh7th/cmp-cmdline'
 	use 'mfussenegger/nvim-jdtls'
 end)
