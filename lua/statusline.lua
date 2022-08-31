@@ -25,24 +25,24 @@ vim.api.nvim_set_hl(0, "black_on_white", { bg="white", fg="black" })
 vim.api.nvim_set_hl(0, "white_on_grey", { bg="grey", fg="white" })
 vim.api.nvim_set_hl(0, "white_on_purple", { bg="purple", fg="white" })
 
-local function Get_mode ()
+local function get_mode ()
 	 return modes[vim.api.nvim_get_mode().mode]
 end
 
-local function Get_mode_color()
+local function get_mode_color()
 	 local mode = vim.api.nvim_get_mode().mode
 	 if mode == "n" then
 		return "%#white_on_grey#"
 	else
 		return "%#white_on_purple#"
 	 end
- end
+end
 
 function Get_statusline()
 	return table.concat {
-		Get_mode_color(),
+		get_mode_color(),
 		" ",
-		Get_mode(),
+		get_mode(),
 		" ",
 		"%#black_on_white#",
 		" %t %m",
