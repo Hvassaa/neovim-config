@@ -12,9 +12,6 @@ vim.wo.number = true
 local keymap_opts = { silent = true }
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>", keymap_opts)
 vim.keymap.set("n", "<F4>", ":w<CR>:so %<cr>", keymap_opts)
-vim.keymap.set("i", "(", "()<left>", keymap_opts)
-vim.keymap.set("i", "{", "{}<left>", keymap_opts)
-vim.keymap.set("i", "[", "[]<left>", keymap_opts)
 vim.api.nvim_set_hl(0, "signcolumn", { bg="NONE" })
 vim.api.nvim_set_hl(0, "Pmenu", { bg="NONE" })
 vim.api.nvim_set_hl(0, "WinSeparator", { bg="NONE" })
