@@ -1,24 +1,25 @@
 local modes = {
-  ["n"] = "NORMAL",
-  ["no"] = "NORMAL",
-  ["v"] = "VISUAL",
-  ["V"] = "V-LINE",
+  ["n"]  = "NORMAL",
+  ["no"] = "NORMAL ",
+  ["v"]  = "VISUAL ",
+  ["V"]  = "V-LINE ",
   [""] = "V-BLOCK",
-  ["s"] = "SELECT",
-  ["S"] = "S-LINE",
+  ["s"]  = "SELECT",
+  ["S"]  = "S-LINE",
   [""] = "S-BLOCK",
-  ["i"] = "INSERT",
+  ["i"]  = "INSERT",
   ["ic"] = "INSERT",
-  ["R"] = "REPLACE",
+  ["R"]  = "REPLACE",
   ["Rv"] = "V-REPLACE",
-  ["c"] = "COMMAND",
+  ["c"]  = "COMMAND",
   ["cv"] = "VIM EX",
   ["ce"] = "EX",
-  ["r"] = "PROMPT",
+  ["r"]  = "PROMPT",
   ["rm"] = "MOAR",
   ["r?"] = "CONFIRM",
-  ["!"] = "SHELL",
-  ["t"] = "TERMINAL",
+  ["!"]  = "SHELL",
+  ["t"]  = "TERMINAL",
+  ["nt"] = "T-NORMAL"
 }
 
 vim.api.nvim_set_hl(0, "black_on_white", { bg="white", fg="black" })
@@ -31,7 +32,7 @@ end
 
 local function get_mode_color()
 	 local mode = vim.api.nvim_get_mode().mode
-	 if mode == "n" then
+	 if mode == "n" or mode == "nt" then
 		return "%#white_on_grey#"
 	else
 		return "%#white_on_purple#"
@@ -47,7 +48,7 @@ function Get_statusline()
 		"%#black_on_white#",
 		" %t %m",
 		"%=",
-		"%Y %3l,%-3c %P",
+		"%Y %3l,%-3c %P ",
 	}
 end
 
