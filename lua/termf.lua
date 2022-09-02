@@ -10,3 +10,34 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	pattern = { "*" }, -- dont run when going from terminal mode to normal-terminal mode
 	command = "setlocal nonumber norelativenumber" -- can this be done in lua/callback?
 })
+
+-- open a new or existing term in vertical split
+local function open_or_switch_term ()
+	for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+		local is_listed = vim.fn.buflisted(buffer) == 1
+		if is_listed then
+			local buf_type = vim.api.nvim_buf_get_option(buffer, "buftype")
+			if buf_type == "terminal" then
+				local win_id = vim.fn.bufwinid(vim.fn.bufname(buffer))
+				if win_id == -1 then
+					vim.cmd('vsplit')
+					local win = vim.api.nvim_get_current_win()
+					vim.api.nvim_win_set_buf(win, buffer)
+					print("Opened term")
+				else
+					vim.fn.win_gotoid(win_id)
+					print("Changed to term")
+				end
+				return 0
+			end
+		end
+	end
+	vim.cmd('vsplit')
+	local win = vim.api.nvim_get_current_win()
+	local buf = vim.api.nvim_create_buf(true, true)
+	vim.api.nvim_win_set_buf(win, buf)
+	vim.cmd("term")
+	print("Created new term")
+	return 0
+end
+vim.keymap.set("n", "<F5>", open_or_switch_term, { silent=true })
