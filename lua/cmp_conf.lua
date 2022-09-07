@@ -29,30 +29,30 @@ cmp.setup {
 	experimental = {
 		ghost_text = true,
 	},
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
+	-- window = {
+	-- 	completion = cmp.config.window.bordered(),
+	-- 	documentation = cmp.config.window.bordered(),
+	-- },
 }
 
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline', keyword_length = 3 }
-  })
-})
+-- cmp.setup.cmdline(':', {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline', keyword_length = 3 }
+--   })
+-- })
 
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
+-- cmp.setup.cmdline('/', {
+--   mapping = cmp.mapping.preset.cmdline(),
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
 
-vim.api.nvim_set_keymap('c', '<C-y>', '', {
-    callback = function()
-        cmp.confirm({ select = false })
-    end,
-})
+-- vim.api.nvim_set_keymap('c', '<C-y>', '', {
+--     callback = function()
+--         cmp.confirm({ select = false })
+--     end,
+-- })

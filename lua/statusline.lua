@@ -22,7 +22,9 @@ local modes = {
   ["nt"] = "T-NORMAL"
 }
 
-vim.api.nvim_set_hl(0, "black_on_white", { bg="white", fg="black" })
+-- vim.api.nvim_set_hl(0, "black_on_white", { bg="white", fg="black" })
+vim.api.nvim_set_hl(0, "black_on_white", { bg="#4d4d4d", fg="white" })
+-- vim.api.nvim_set_hl(0, "white_on_blue", { bg="#819fd4", fg="white" })
 vim.api.nvim_set_hl(0, "white_on_grey", { bg="grey", fg="white" })
 vim.api.nvim_set_hl(0, "white_on_purple", { bg="purple", fg="white" })
 
@@ -45,6 +47,7 @@ function Get_statusline()
 		" ",
 		get_mode(),
 		" ",
+		-- "%#white_on_blue#",
 		"%#black_on_white#",
 		" %t %m",
 		"%=",

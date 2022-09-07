@@ -56,22 +56,22 @@ lspconfig.sumneko_lua.setup {
 
 -- customizing floating window borders (taken from nvim-lsp wiki)
 -- hopefully, they will eventually have simpler configuration like cmp
-local border = {
-    { "╭", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╮", "FloatBorder" },
-    { "│", "FloatBorder" },
-    { "╯", "FloatBorder" },
-    { "─", "FloatBorder" },
-    { "╰", "FloatBorder" },
-    { "│", "FloatBorder" },
-}
+-- local border = {
+--     { "╭", "FloatBorder" },
+--     { "─", "FloatBorder" },
+--     { "╮", "FloatBorder" },
+--     { "│", "FloatBorder" },
+--     { "╯", "FloatBorder" },
+--     { "─", "FloatBorder" },
+--     { "╰", "FloatBorder" },
+--     { "│", "FloatBorder" },
+-- }
 
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
+-- local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+--   opts = opts or {}
+--   opts.border = opts.border or border
+--   return orig_util_open_floating_preview(contents, syntax, opts, ...)
+-- end
 
 return on_attach

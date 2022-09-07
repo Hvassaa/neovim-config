@@ -13,4 +13,5 @@ require('packer').startup(function()
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-cmdline'
 	use 'mfussenegger/nvim-jdtls'
+	use 'Hvassaa/sterm.nvim'
 end)
