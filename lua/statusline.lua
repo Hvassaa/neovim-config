@@ -19,7 +19,8 @@ local modes = {
   ["r?"] = "CONFIRM",
   ["!"]  = "SHELL",
   ["t"]  = "TERMINAL",
-  ["nt"] = "T-NORMAL"
+  ["nt"] = "T-NORMAL",
+  ["ix"] = "COMP.",
 }
 
 -- vim.api.nvim_set_hl(0, "black_on_white", { bg="white", fg="black" })
@@ -29,7 +30,12 @@ vim.api.nvim_set_hl(0, "white_on_grey", { bg="grey", fg="white" })
 vim.api.nvim_set_hl(0, "white_on_purple", { bg="purple", fg="white" })
 
 local function get_mode ()
-	 return modes[vim.api.nvim_get_mode().mode]
+	local mode = modes[vim.api.nvim_get_mode().mode]
+	if mode then
+		return mode
+	else
+		return ""
+	end
 end
 
 local function get_mode_color()

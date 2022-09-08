@@ -2,6 +2,7 @@ local use = require('packer').use
 require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	use 'lervag/vimtex'
+	use 'nvim-lualine/lualine.nvim'
 	use 'tpope/vim-commentary'
 	use 'L3MON4D3/LuaSnip'
 	use 'neovim/nvim-lspconfig'

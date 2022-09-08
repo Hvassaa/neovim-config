@@ -7,6 +7,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.laststatus = 3
 vim.opt.tabstop = 4
+vim.o.completeopt = 'menuone,noselect'
 vim.opt.shiftwidth = 4
 vim.wo.number = true
 local keymap_opts = { silent = true }
@@ -16,3 +17,7 @@ vim.api.nvim_set_hl(0, "signcolumn", { bg="NONE" })
 vim.api.nvim_set_hl(0, "Pmenu", { fg="white", bg="#4d4d4d" })
 vim.api.nvim_set_hl(0, "PmenuSel", { fg="black", bg="#C7B446" })
 vim.api.nvim_set_hl(0, "WinSeparator", { bg="NONE" })
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+require('lualine').setup()

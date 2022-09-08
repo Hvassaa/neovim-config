@@ -14,6 +14,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f',function() vim.lsp.buf.format { async = true } end, bufopts) -- does not work?
   --vim.cmd [[autocmd BufWritePre * lua function() vim.lsp.buf.format { async = true } end]]
+  -- (OMNI)
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 
