@@ -7,19 +7,20 @@ vim.opt.mouse = "a"
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.laststatus = 3
-vim.opt.showmode = false
+-- vim.opt.laststatus = 0
+-- vim.opt.showmode = false
 vim.opt.tabstop = 4
 vim.o.completeopt = 'menuone,noselect'
 vim.opt.shiftwidth = 4
 vim.wo.number = true
 local keymap_opts = { silent = true }
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>", keymap_opts)
-vim.api.nvim_set_hl(0, "signcolumn", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "Pmenu", { fg = "white", bg = "#4d4d4d" })
-vim.api.nvim_set_hl(0, "PmenuSel", { fg = "black", bg = "#C7B446" })
-vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+-- vim.api.nvim_set_hl(0, "signcolumn", { bg = "NONE" })
+-- vim.api.nvim_set_hl(0, "Pmenu", { fg = "white", bg = "#4d4d4d" })
+-- vim.api.nvim_set_hl(0, "PmenuSel", { fg = "black", bg = "#C7B446" })
+-- vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
 -- || PLUGINS || --
 local use = require('packer').use
@@ -38,10 +39,12 @@ require('packer').startup(function()
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-cmdline'
 	use 'mfussenegger/nvim-jdtls'
-	use 'Hvassaa/sterm.nvim'
+	use { 'Hvassaa/sterm.nvim', branch = "testing" }
+	use "savq/melange"
 end)
 require('lualine').setup({})
 require('Comment').setup()
+vim.cmd("colo melange")
 
 -- || LSP CONF || --
 local on_attach = function(client, bufnr)
