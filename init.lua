@@ -1,5 +1,6 @@
 -- || GENERAL VIM CONF || --
 vim.opt.termguicolors = true
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -7,8 +8,6 @@ vim.opt.mouse = "a"
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.laststatus = 3
--- vim.opt.laststatus = 0
--- vim.opt.showmode = false
 vim.opt.tabstop = 4
 vim.o.completeopt = 'menuone,noselect'
 vim.opt.shiftwidth = 4
@@ -20,14 +19,12 @@ vim.g.maplocalleader = ' '
 -- vim.api.nvim_set_hl(0, "signcolumn", { bg = "NONE" })
 -- vim.api.nvim_set_hl(0, "Pmenu", { fg = "white", bg = "#4d4d4d" })
 -- vim.api.nvim_set_hl(0, "PmenuSel", { fg = "black", bg = "#C7B446" })
--- vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
 -- || PLUGINS || --
 local use = require('packer').use
 require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	use 'lervag/vimtex'
-	use 'nvim-lualine/lualine.nvim'
 	use 'numToStr/Comment.nvim'
 	use 'L3MON4D3/LuaSnip'
 	use 'neovim/nvim-lspconfig'
@@ -37,14 +34,10 @@ require('packer').startup(function()
 	use 'hrsh7th/cmp-omni' -- works with vimtex!
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/cmp-path'
-	use 'hrsh7th/cmp-cmdline'
-	use 'mfussenegger/nvim-jdtls'
+	-- use 'mfussenegger/nvim-jdtls'
 	use { 'Hvassaa/sterm.nvim', branch = "testing" }
-	use "savq/melange"
 end)
-require('lualine').setup({})
 require('Comment').setup()
-vim.cmd("colo melange")
 
 -- || LSP CONF || --
 local on_attach = function(client, bufnr)
@@ -60,7 +53,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', "<M-CR>", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts) -- does not work?
+	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 	vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
 	-- (OMNI)
 	-- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -144,15 +137,11 @@ end
 vim.g.vimtex_complete_enabled = 1
 vim.g.tex_flavor = 'latex'
 vim.g.vimtex_view_general_viewer = 'evince'
-vim.cmd [[
-	autocmd FileType tex autocmd VimLeave * :VimtexClean
-	autocmd FileType tex,md setlocal textwidth=80
-]]
-
--- vim.cmd[[
--- 	autocmd BufEnter *.tex autocmd VimLeave * :VimtexClean
--- 	autocmd BufEnter *.tex,*.md setlocal textwidth=80
--- ]]
+-- set textwidth to 80 for "text" buffers
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+	pattern = { "*.tex", "*.md", "*.txt" },
+	command = "setlocal textwidth=80"
+})
 
 -- || TERMINAL CONFIG || --
 -- Double esc to get termimnal normal

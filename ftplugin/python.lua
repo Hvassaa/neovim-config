@@ -14,7 +14,5 @@ local function run_pytest()
 	vim.fn.termopen("python3 -m pytest " .. test)
 end
 
--- vim.cmd("setlocal makeprg=python3\\ %")
--- vim.keymap.set("n", "<F4>", ":make<CR>")
-vim.keymap.set("n", "<F4>", ":!python3 %<CR>")
+vim.keymap.set("n", "<F4>", "!python3 %<CR>")
 vim.keymap.set("n", "<F6>", run_pytest)
