@@ -16,9 +16,6 @@ local keymap_opts = { silent = true }
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>", keymap_opts)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
--- vim.api.nvim_set_hl(0, "signcolumn", { bg = "NONE" })
--- vim.api.nvim_set_hl(0, "Pmenu", { fg = "white", bg = "#4d4d4d" })
--- vim.api.nvim_set_hl(0, "PmenuSel", { fg = "black", bg = "#C7B446" })
 
 -- || PLUGINS || --
 local use = require('packer').use
@@ -36,11 +33,24 @@ require('packer').startup(function()
 	use 'hrsh7th/cmp-path'
 	-- use 'mfussenegger/nvim-jdtls'
 	use { 'Hvassaa/sterm.nvim', branch = "testing" }
+	use {
+		"catppuccin/nvim",
+		as = "catppuccin",
+		config = function()
+			vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
+			require("catppuccin").setup({ transparent_background = true })
+			vim.api.nvim_command "colorscheme catppuccin"
+		end
+	}
 end)
 require('Comment').setup()
 
 -- || LSP CONF || --
 local on_attach = function(client, bufnr)
+	local function formatx()
+		vim.lsp.buf.format { async = true }
+	end
+
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -53,8 +63,12 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', "<M-CR>", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-	vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	vim.keymap.set('n', '<space>f', formatx, bufopts)
+	-- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+
+	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+		callback = formatx
+	})
 	-- (OMNI)
 	-- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
