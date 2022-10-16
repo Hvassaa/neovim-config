@@ -33,12 +33,13 @@ require('packer').startup(function()
 	use 'hrsh7th/cmp-path'
 	-- use 'mfussenegger/nvim-jdtls'
 	use { 'Hvassaa/sterm.nvim', branch = "testing" }
+	use 'Hvassaa/scomp.nvim'
 	use {
 		"catppuccin/nvim",
 		as = "catppuccin",
 		config = function()
-			vim.g.catppuccin_flavour = "latte" -- latte, frappe, macchiato, mocha
-			require("catppuccin").setup({ transparent_background = true })
+			vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+			-- require("catppuccin").setup({ transparent_background = true })
 			vim.api.nvim_command "colorscheme catppuccin"
 		end
 	}
@@ -64,18 +65,9 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', "<M-CR>", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 	vim.keymap.set('n', '<space>f', formatx, bufopts)
-	-- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-
-	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-		callback = formatx
-	})
-	-- (OMNI)
-	-- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local lspconfig = require('lspconfig')
 
