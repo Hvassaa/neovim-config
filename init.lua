@@ -16,10 +16,16 @@ local keymap_opts = { silent = true }
 vim.keymap.set("n", "<F8>", ":setlocal spell! spelllang=en_gb<CR>", keymap_opts)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.api.nvim_set_hl(0, "signcolumn", { bg="NONE" })
-vim.api.nvim_set_hl(0, "Pmenu", { fg="white", bg="#4d4d4d" })
-vim.api.nvim_set_hl(0, "PmenuSel", { fg="black", bg="#C7B446" })
-vim.api.nvim_set_hl(0, "WinSeparator", { bg="NONE" })
+-- does not work???
+-- vim.api.nvim_set_hl(0, 'SignColumn', { bg="NONE" })
+-- vim.api.nvim_set_hl(0, "pmenu", { fg="white", bg="#4d4d4d" })
+-- vim.api.nvim_set_hl(0, "pmenusel", { fg="black", bg="#C7B446" })
+-- vim.api.nvim_set_hl(0, "WinSeparator", { bg="NONE" })
+vim.cmd("highlight PMenu guifg=white guibg=gray")
+vim.cmd("highlight SignColumn guibg=NONE")
+vim.cmd("highlight PMenuSel guifg=white guibg=#C7B446")
+vim.cmd("highlight WinSeparator guibg=NONE")
+vim.cmd("highlight StatusLine guibg=black guifg=yellow")
 
 -- || PLUGINS || --
 local use = require('packer').use
@@ -38,10 +44,8 @@ require('packer').startup(function()
 	-- use 'mfussenegger/nvim-jdtls'
 	use { 'Hvassaa/sterm.nvim', branch = "testing" }
 	use 'Hvassaa/scomp.nvim'
-	use 'nvim-lualine/lualine.nvim'
 end)
 require('Comment').setup()
-require('lualine').setup({})
 
 -- || LSP CONF || --
 local on_attach = function(client, bufnr)
