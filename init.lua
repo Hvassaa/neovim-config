@@ -27,4 +27,4 @@ vim.keymap.set('n', '<F8>', ':setlocal spell! spelllang=en_gb<CR>') -- spelling!
 require("rasmus.plugs")
 require("rasmus.colors")
 require("rasmus.treesitter")
-require("rasmus.lsp")
+require("rasmus.completion")

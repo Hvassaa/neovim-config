@@ -14,7 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {"nvim-treesitter/nvim-treesitter", cmd = "TSUpdate"},
   {"numToStr/Comment.nvim", config = true},
-  {"lervag/vimtex", config = function() vim.g.vimtex_complete_enabled = 1 end},
+  {"lervag/vimtex", config = function()
+    vim.g.vimtex_complete_enabled = 1
+    vim.g.vimtex_syntax_enabled = 0
+  end},
   {
   'VonHeikemen/lsp-zero.nvim',
   branch = 'v1.x',
@@ -31,6 +34,7 @@ require("lazy").setup({
     {'hrsh7th/cmp-path'},         -- Optional
     {'saadparwaiz1/cmp_luasnip'}, -- Optional
     {'hrsh7th/cmp-nvim-lua'},     -- Optional
+    {'hrsh7th/cmp-omni'},         -- for vimtex/omni completion
 
     -- Snippets
     {'L3MON4D3/LuaSnip'},             -- Required
