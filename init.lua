@@ -1,3 +1,4 @@
+vim.cmd[[nnoremap <SPACE> <Nop>]]
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -23,6 +24,8 @@ vim.wo.number = true
 vim.cmd [[set completeopt-=preview]]
 
 vim.keymap.set('n', '<F8>', ':setlocal spell! spelllang=en_gb<CR>') -- spelling!
+vim.keymap.set('n', '<leader>l', ':Lines<CR>')
+vim.keymap.set('n', '<leader>l', ':Files<CR>')
 
 require("rasmus.plugs")
 require("rasmus.colors")
