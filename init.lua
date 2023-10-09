@@ -34,10 +34,12 @@ require("lazy").setup({
   {'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate'},
 	{
 		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
+		branch = 'v3.x',
 		dependencies = {
 			-- LSP Support
 			{'neovim/nvim-lspconfig'},
+			{'williamboman/mason.nvim'},
+			{'williamboman/mason-lspconfig.nvim'},
 			-- Autocompletion
 			{'hrsh7th/nvim-cmp'},
 			{'hrsh7th/cmp-nvim-lsp'},
@@ -51,17 +53,28 @@ require("lazy").setup({
 })
 
 -- lsp-zero boilerplate
-local lsp = require('lsp-zero').preset({
-  manage_nvim_cmp = {
-    set_extra_mappings = true,
-		set_sources = 'recommended'
-  }
-})
-lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
+local lsp_zero = require('lsp-zero')
+
+lsp_zero.on_attach(function(client, bufnr)
+  lsp_zero.default_keymaps({buffer = bufnr})
 end)
-lsp.setup_servers({'gopls'})
-lsp.setup()
+
+require('mason').setup({
+	ui = {
+		border = "rounded"
+	}
+})
+
+require('lspconfig.ui.windows').default_options = {
+  border = "rounded"
+}
+
+require('mason-lspconfig').setup({
+  ensure_installed = {},
+  handlers = {
+    lsp_zero.default_setup,
+  },
+})
 
 local cmp = require('cmp')
 cmp.setup({
