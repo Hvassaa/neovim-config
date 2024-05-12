@@ -32,7 +32,7 @@ require("mini.deps").setup()
 MiniDeps.add({source = 'neovim/nvim-lspconfig'})
 
 require("lspconfig").lua_ls.setup({
-  cmd = {"/home/rasmus/Downloads/lua-language-server-3.8.3-linux-x64/bin/lua-language-server"},
+  cmd = {"/home/rasmus/Downloads/lua-language-server-3.9.0-linux-x64/bin/lua-language-server"},
   settings = {
     Lua = {
       runtime = {
