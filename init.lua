@@ -10,7 +10,13 @@ vim.opt.mouse = "a"
 vim.opt.signcolumn = "yes"
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
+vim.o.background = "light"
 vim.cmd("colorscheme retrobox")
+vim.cmd("hi Normal guibg=NONE")
+vim.cmd("hi NormalFloat guibg=NONE")
+vim.cmd("hi FloatBorder guibg=NONE")
+vim.cmd("hi Pmenu guibg=NONE")
+vim.o.winborder = "rounded"
 
 do
   local lazy_path = (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
@@ -25,9 +31,6 @@ do
 end
 
 do
-  local lsp = {"neovim/nvim-lspconfig"}
-  local telescope = {"nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = {"nvim-lua/plenary.nvim"}}
-
   local treesitter = {
 	  "nvim-treesitter/nvim-treesitter", 
 	  build = ":TSUpdate", 
@@ -46,52 +49,61 @@ do
 
   local blink = {
 	  "saghen/blink.cmp", 
-	  dependencies = {"rafamadriz/friendly-snippets"}, 
-	  version = "v0.8.2", 
+	  dependencies = { "rafamadriz/friendly-snippets" }, 
+	  version = "v1.0.0", 
 	  opts = {
-		  keymap = {preset = "enter"}, 
-		  sources = {cmdline = {}}, 
+		  keymap = { preset = "enter" }, 
 		  appearance = {
 			  use_nvim_cmp_as_default = true, 
-			  nerd_font_variant = "mono"
+			  nerd_font_variant = "mono",
 		  }, 
+		  signature = { 
+			  enabled = true,
+			  window = { show_documentation = false }
+		  },
 		  completion = {
-			  documentation = {
-				  auto_show = true, 
-				  auto_show_delay_ms = 100
-			  }
-		  }, 
-		  signature = {enabled = true}
+			  menu = {
+				  draw = {
+					  columns = { { "label", "label_description" }, { "kind" } },
+				  }
+			  },
+			  documentation = { auto_show = true, auto_show_delay_ms = 100 },
+		  }
 	  }
   }
 
-  local lazy = require("lazy")
-  lazy.setup({treesitter, lsp, telescope, blink})
+  local fzf_lua = { "ibhagwan/fzf-lua", opts = {} }
+
+  require("lazy").setup({ 
+	  ui = { border = "rounded" },
+	  spec = {
+		  treesitter, 
+		  blink, 
+		  fzf_lua,
+	  }
+  })
 end
 
 do
-  local lsp = require("lspconfig")
-  local blink = require("blink.cmp")
-  local capabilities blink.get_lsp_capabilities()
+  vim.diagnostic.config({ virtual_text = true })
 
-  lsp.rust_analyzer.setup({capabilities = capabilities})
-end
+  local on_attach = function(args)
+	  local client = vim.lsp.get_client_by_id(args.data.client_id)
+	  -- Format the current buffer on save
+	  if client:supports_method('textDocument/formatting') then
+		  vim.lsp.buf.format({bufnr = args.buf, id = client.id})
+	  end
+  end
+  vim.api.nvim_create_autocmd("LspAttach", {callback = on_attach})
 
-do
-	local telescope = require("telescope.builtin")
-	local normal_maps = {
-		{"<F6>", vim.lsp.buf.rename}, 
-		{"gd", vim.lsp.buf.definition}, 
-		{"<leader>ca", vim.lsp.buf.code_action}, 
-		{"<leader>r", vim.lsp.buf.references}, 
-		{"<leader>ff", telescope.find_files}, 
-		{"<leader>fg", telescope.live_grep}, 
-		{"<leader>fs", telescope.treesitter}
-	}
+  vim.lsp.config('*', {
+	  root_markers = { '.git' },
+  })
 
-	for _, mapping in pairs(normal_maps) do
-		local key = mapping[1]
-		local action = mapping[2]
-		vim.keymap.set("n", key, action)
-	end
+  vim.lsp.config.gopls = {
+	  cmd = { vim.fn.expand("$HOME/go/bin/gopls") },
+	  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+	  root_markers = { "go.mod", "go.sum", ".git", vim.uv.cwd() },
+  }
+  vim.lsp.enable({ "gopls" })
 end
