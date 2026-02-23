@@ -10,9 +10,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.completeopt = "menu,menuone,noinsert,noselect"
-
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.cmd.highlight({"Normal", "guibg=NONE"})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
@@ -30,6 +28,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.lsp.config('*', { root_markers = { '.git' }})
 vim.diagnostic.config({ virtual_text = true })
-vim.lsp.enable({"rust_analyzer"})
+vim.lsp.enable({ "rust_analyzer", "gopls" })
 
 require('mini.completion').setup()
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
