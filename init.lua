@@ -10,26 +10,19 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.cmd.highlight({"Normal", "guibg=NONE"})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client:supports_method('textDocument/formatting') then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = ev.buf,
-        callback = function()
-          vim.lsp.buf.format()
-        end
-      })
-    end
-  end
-})
-
-vim.lsp.config('*', { root_markers = { '.git' }})
-vim.diagnostic.config({ virtual_text = true })
-vim.lsp.enable({ "rust_analyzer", "gopls" })
-
-require('mini.completion').setup()
+vim.cmd.highlight {"Normal", "guibg=NONE"}
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+vim.pack.add {
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/nvim-mini/mini.completion"
+}
+
+
+vim.lsp.enable {
+  "lua_ls"
+}
+
+require("vim._core.ui2").enable()
+require("mini.completion").setup()
