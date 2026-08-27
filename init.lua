@@ -10,6 +10,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.cmd.colorscheme {"retrobox"}
 vim.cmd.highlight {"Normal", "guibg=NONE"}
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
@@ -18,7 +19,6 @@ vim.pack.add {
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/nvim-mini/mini.completion"
 }
-
 
 vim.lsp.enable {
   "lua_ls"
