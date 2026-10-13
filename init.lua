@@ -21,7 +21,9 @@ vim.pack.add {
 }
 
 vim.lsp.enable {
-  "lua_ls"
+  "lua_ls",
+  "tsc",
+  "jdtls"
 }
 
 require("vim._core.ui2").enable()
