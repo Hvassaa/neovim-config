@@ -28,3 +28,9 @@ vim.lsp.enable {
 
 require("vim._core.ui2").enable()
 require("mini.completion").setup()
+
+
+require('editorconfig').properties.ij_continuation_indent_size = function(bufnr, val)
+  vim.opt_local.cindent = true
+  vim.opt_local.cinoptions = "+" .. val
+end
