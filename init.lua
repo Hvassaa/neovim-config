@@ -11,7 +11,7 @@ vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.cmd.colorscheme {"retrobox"}
-vim.cmd.highlight {"Normal", "guibg=NONE"}
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
